@@ -1,0 +1,31 @@
+{
+  "generator-ngx-library": {
+    "version": "5.4.0",
+    "authorName": "jgololicic",
+    "authorEmail": "jernej.gololicic@gmail.com",
+    "githubUsername": "jgololicic",
+    "githubRepoName": "simple-ngx-policy",
+    "projectName": "simple-ngx-policy",
+    "projectVersion": "0.0.1",
+    "projectDescription": "Simple Angular 2+ statement & resource management library",
+    "projectKeywords": [
+      "angular",
+      " policy",
+      " resource",
+      " statement",
+      " management"
+    ],
+    "ngVersion": "5.0.0",
+    "ngModules": [
+      "core",
+      "common"
+    ],
+    "otherDependencies": [],
+    "dependenciesRange": "^",
+    "ngPrefix": "snp",
+    "useGreenkeeper": true,
+    "useCompodoc": true,
+    "enforceNgGitCommitMsg": true,
+    "exclusions": []
+  }
+}
