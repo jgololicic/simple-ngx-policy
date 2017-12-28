@@ -1,7 +1,7 @@
 {
   "name": "simple-ngx-policy",
   "description": "Simple Angular 2+ statement &amp; resource management library",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "homepage": "https://github.com/jgololicic/simple-ngx-policy",
   "author": {
     "name": "jgololicic",
