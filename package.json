@@ -1,7 +1,7 @@
 {
   "name": "simple-ngx-policy",
   "description": "Simple Angular 2+ statement &amp; resource management library",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "homepage": "https://github.com/jgololicic/simple-ngx-policy",
   "author": {
     "name": "jgololicic",
@@ -76,6 +76,7 @@
     "karma-remap-coverage": "0.1.4",
     "karma-sourcemap-loader": "0.3.7",
     "karma-webpack": "2.0.5",
+    "lodash": "^4.17.4",
     "node-sass": "4.5.3",
     "postcss": "6.0.13",
     "postcss-strip-inline-comments": "0.1.5",
