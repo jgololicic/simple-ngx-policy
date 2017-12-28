@@ -9,6 +9,9 @@ import {SnpPolicyConfiguration} from './definitions/policy-configuration';
 // Export module's public API
 export {SnpPolicyService} from './service/policy.service';
 export {SnpConfig} from './definitions/config';
+export {SnpPolicy} from './definitions/policy';
+export {SnpResource} from './definitions/resource';
+export {SnpStatement} from './definitions/statement';
 
 @NgModule({
     imports: [
