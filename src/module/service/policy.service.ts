@@ -12,7 +12,7 @@ export class SnpPolicyService {
     /**
      * Config is provided by SnpModule.forRoot() call.
      */
-    public static config: SnpConfig;
+    public static config: SnpConfig = {};
 
     public static providePolicy(statement?: string, resource?: string, constraint?: SnpPolicyConstraint): SnpPolicy {
 

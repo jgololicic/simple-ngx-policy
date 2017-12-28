@@ -25,7 +25,7 @@ export class SnpModule {
             providers: [
                 {
                     provide: SnpPolicyConfiguration,
-                    useFactory: () => {
+                    useFactory() {
                         const snpConfig: SnpConfig = Object.assign({}, CONFIG, externalConfig);
                         SnpPolicyService.config = snpConfig;
                         return snpConfig;
