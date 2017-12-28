@@ -379,7 +379,7 @@ gulp.task('rollup-bundle', (cb) => {
       // ATTENTION:
       // Add any other dependency or peer dependency of your library here
       // This is required for UMD bundle users.
-      
+
     };
     const rollupBaseConfig = {
       name: _.camelCase(config.libraryName),
@@ -502,7 +502,7 @@ gulp.task('serve:demo-hmr', () => {
 });
 
 gulp.task('build:demo', () => {
-  return execDemoCmd(`build --preserve-symlinks --prod --aot --build-optimizer`, { cwd: `${config.demoDir}`});
+  return execDemoCmd(`build --preserve-symlinks --prod --aot --build-optimizernpm ins`, { cwd: `${config.demoDir}`});
 });
 
 gulp.task('serve:demo-ssr',['build:demo'], () => {
