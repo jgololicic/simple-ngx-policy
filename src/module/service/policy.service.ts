@@ -15,9 +15,6 @@ export class SnpPolicyService {
      */
     public static config: SnpConfig;
 
-    public constructor(@Inject(SnpPolicyConfiguration) private config: SnpConfig) {
-    }
-
     public static providePolicy(statement?: string, resource?: string, constraint?: SnpPolicyConstraint): SnpPolicy {
 
         statement = statement || this.config.defaultStatement;
@@ -27,6 +24,9 @@ export class SnpPolicyService {
         const policyResource = new SnpResource(resource);
 
         return new SnpPolicy(policyStatement, policyResource, defaultPolicyConstraint);
+    }
+
+    public constructor(@Inject(SnpPolicyConfiguration) private config: SnpConfig) {
     }
 
     public canAccess(policy: SnpPolicy, listOfPolicies: SnpPolicy[] = []): boolean {
