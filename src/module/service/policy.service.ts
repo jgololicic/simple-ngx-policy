@@ -5,7 +5,6 @@ import {SnpPolicyConstraint} from '../definitions/policy-constraint';
 import {SnpStatement} from '../definitions/statement';
 import {SnpResource} from '../definitions/resource';
 import {SnpPolicyConfiguration} from '../definitions/policy-configuration';
-import {list} from 'postcss';
 
 @Injectable()
 export class SnpPolicyService {
