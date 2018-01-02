@@ -29,13 +29,16 @@ export class SnpPolicyService {
     }
 
     public canAccess(policy: SnpPolicy, listOfPolicies: SnpPolicy[] = []): boolean {
+        const constraint = policy.constrains || this.config.defaultPolicyConstraint;
         if (listOfPolicies.length === 0) {
-            return this.config.defaultPolicyConstraint === SnpPolicyConstraint.ALLOWED;
+            return constraint === SnpPolicyConstraint.ALLOWED;
         }
+
         const listOfMatchedPolicyStatements = this.provideListOfMatchedPoliciesBasedOnStatement(policy, listOfPolicies);
         if (listOfMatchedPolicyStatements.length === 0) {
-            return this.config.defaultPolicyConstraint === SnpPolicyConstraint.ALLOWED;
+            return constraint === SnpPolicyConstraint.ALLOWED;
         }
+
         const listOfMatchedPolicyResources = this.provideListOfMatchedPoliciesBasedOnResource(policy, listOfPolicies);
         return !!listOfMatchedPolicyResources.length;
 

@@ -71,6 +71,19 @@ describe('SnpPolicyService', () => {
                 expect(decision).toEqual(true);
             });
 
+            it(`Returns FALSE for 'empty' policy and 'empty list' when policies' constraint is DISALLOW`, () => {
+                const policy = SnpPolicyService.providePolicy(null, null, SnpPolicyConstraint.DISALLOW);
+                const decision = policyService.canAccess(policy);
+                expect(decision).toEqual(false);
+            });
+
+            it(`Returns TRUE for 'empty' policy and 'empty list' when policies' constraint is ALLOWED`, () => {
+                const policy = SnpPolicyService.providePolicy(null, null, SnpPolicyConstraint.ALLOWED);
+                const decision = policyService.canAccess(policy);
+                expect(decision).toEqual(true);
+            });
+
+
             it(`Returns TRUE for empty 'policy' when list is provided (not empty)`, () => {
                 const listOfPolicies: SnpPolicy[] = [];
                 listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:read', 'nsp:human-resources:employees'));
@@ -80,6 +93,27 @@ describe('SnpPolicyService', () => {
                 const decision = policyService.canAccess(policy);
                 expect(decision).toEqual(true);
             });
+
+            it(`Returns FALSE for empty 'policy' with constraints set to DISALLOW when list is provided (not empty)`, () => {
+                const listOfPolicies: SnpPolicy[] = [];
+                listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:read', 'nsp:human-resources:employees'));
+                listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:write', 'nsp:human-resources:employees'));
+
+                const policy = SnpPolicyService.providePolicy(null, null, SnpPolicyConstraint.DISALLOW);
+                const decision = policyService.canAccess(policy);
+                expect(decision).toEqual(false);
+            });
+
+            it(`Returns TRUE for empty 'policy' with constraints set to ALLOWED when list is provided (not empty)`, () => {
+                const listOfPolicies: SnpPolicy[] = [];
+                listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:read', 'nsp:human-resources:employees'));
+                listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:write', 'nsp:human-resources:employees'));
+
+                const policy = SnpPolicyService.providePolicy(null, null, SnpPolicyConstraint.ALLOWED);
+                const decision = policyService.canAccess(policy);
+                expect(decision).toEqual(true);
+            });
+
 
             it(`Returns TRUE if the policy is not in the list`, () => {
                 const listOfPolicies: SnpPolicy[] = [];
@@ -98,7 +132,25 @@ describe('SnpPolicyService', () => {
                 expect(decision).toEqual(true);
             });
 
-            it(`Returns TRUE if the policy's statement is on the list AND policy's resources match, `, () => {
+            it(`Returns FALSE if the policy with constraint DISALLOW is not in the list`, () => {
+                const listOfPolicies: SnpPolicy[] = [];
+                listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:read', 'nsp:human-resources:employees'));
+                listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:write', 'nsp:human-resources:employees'));
+
+                const policy = SnpPolicyService.providePolicy('it-department:salaries:read', null, SnpPolicyConstraint.DISALLOW);
+                let decision = policyService.canAccess(policy, listOfPolicies);
+                expect(decision).toEqual(false);
+
+                const policyWithResourceAndConstraint = SnpPolicyService.providePolicy(
+                    'it-department:salaries:read',
+                    'nsp:it-department/salaries/2017-09',
+                    SnpPolicyConstraint.DISALLOW
+                );
+                decision = policyService.canAccess(policyWithResourceAndConstraint);
+                expect(decision).toEqual(false);
+            });
+
+            it(`Returns TRUE if the policy's statement is on the list AND policy's resources match`, () => {
                 const listOfPolicies: SnpPolicy[] = [];
                 listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:read', 'nsp:human-resources:employees'));
                 listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:write', 'nsp:human-resources:employees'));
@@ -111,7 +163,35 @@ describe('SnpPolicyService', () => {
                 expect(decision).toEqual(true);
             });
 
-            it(`Returns FALSE if the policy's statement is on the list BUT resources does not match, `, () => {
+            it(`Returns TRUE if the policy's statement is on the list AND policy's resources match AND policy's constraint is DISALLOW`, () => {
+                const listOfPolicies: SnpPolicy[] = [];
+                listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:read', 'nsp:human-resources:employees'));
+                listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:write', 'nsp:human-resources:employees'));
+
+                const policyWithResource = SnpPolicyService.providePolicy(
+                    'human-resources:employees:read',
+                    'nsp:human-resources:employees',
+                    SnpPolicyConstraint.DISALLOW
+                );
+                const decision = policyService.canAccess(policyWithResource, listOfPolicies);
+                expect(decision).toEqual(true);
+            });
+
+            it(`Returns TRUE if the policy's statement is on the list AND policy's resources match AND policy's constraint is ALLOWED`, () => {
+                const listOfPolicies: SnpPolicy[] = [];
+                listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:read', 'nsp:human-resources:employees'));
+                listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:write', 'nsp:human-resources:employees'));
+
+                const policyWithResource = SnpPolicyService.providePolicy(
+                    'human-resources:employees:read',
+                    'nsp:human-resources:employees',
+                    SnpPolicyConstraint.ALLOWED
+                );
+                const decision = policyService.canAccess(policyWithResource, listOfPolicies);
+                expect(decision).toEqual(true);
+            });
+
+            it(`Returns FALSE if the policy's statement is on the list BUT resources does not match`, () => {
                 const listOfPolicies: SnpPolicy[] = [];
                 listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:read', 'nsp:human-resources:employees'));
                 listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:write', 'nsp:human-resources:employees'));
@@ -119,6 +199,34 @@ describe('SnpPolicyService', () => {
                 const policyWithResource = SnpPolicyService.providePolicy(
                     'human-resources:employees:read',
                     'nsp:human-resources:salaries'
+                );
+                const decision = policyService.canAccess(policyWithResource, listOfPolicies);
+                expect(decision).toEqual(false);
+            });
+
+            it(`Returns FALSE if the policy's statement is on the list BUT resources does not match and policy's constraint is DISALLOW`, () => {
+                const listOfPolicies: SnpPolicy[] = [];
+                listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:read', 'nsp:human-resources:employees'));
+                listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:write', 'nsp:human-resources:employees'));
+
+                const policyWithResource = SnpPolicyService.providePolicy(
+                    'human-resources:employees:read',
+                    'nsp:human-resources:salaries',
+                    SnpPolicyConstraint.DISALLOW
+                );
+                const decision = policyService.canAccess(policyWithResource, listOfPolicies);
+                expect(decision).toEqual(false);
+            });
+
+            it(`Returns FALSE if the policy's statement is on the list BUT resources does not match and policy's constraint is ALLOWED`, () => {
+                const listOfPolicies: SnpPolicy[] = [];
+                listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:read', 'nsp:human-resources:employees'));
+                listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:write', 'nsp:human-resources:employees'));
+
+                const policyWithResource = SnpPolicyService.providePolicy(
+                    'human-resources:employees:read',
+                    'nsp:human-resources:salaries',
+                    SnpPolicyConstraint.ALLOWED
                 );
                 const decision = policyService.canAccess(policyWithResource, listOfPolicies);
                 expect(decision).toEqual(false);
@@ -136,6 +244,12 @@ describe('SnpPolicyService', () => {
                 expect(decision).toEqual(false);
             });
 
+            it(`Returns TRUE for 'empty' policy with constraints ALLOW when list is not provided`, () => {
+                const policy = SnpPolicyService.providePolicy(null, null, SnpPolicyConstraint.ALLOWED);
+                const decision = policyService.canAccess(policy);
+                expect(decision).toEqual(true);
+            });
+
             it(`Returns FALSE for empty policy when list is provided (not empty)`, () => {
                 const listOfPolicies: SnpPolicy[] = [];
                 listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:read', 'nsp:human-resources:employees'));
@@ -144,6 +258,16 @@ describe('SnpPolicyService', () => {
                 const policy = SnpPolicyService.providePolicy();
                 const decision = policyService.canAccess(policy);
                 expect(decision).toEqual(false);
+            });
+
+            it(`Returns TRUE for empty with constraint ALLOWED policy when list is provided (not empty)`, () => {
+                const listOfPolicies: SnpPolicy[] = [];
+                listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:read', 'nsp:human-resources:employees'));
+                listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:write', 'nsp:human-resources:employees'));
+
+                const policy = SnpPolicyService.providePolicy(null, null, SnpPolicyConstraint.ALLOWED);
+                const decision = policyService.canAccess(policy);
+                expect(decision).toEqual(true);
             });
 
             it(`Returns FALSE if policy is not in the list`, () => {
@@ -163,7 +287,25 @@ describe('SnpPolicyService', () => {
                 expect(decision).toEqual(false);
             });
 
-            it(`Returns TRUE if policy's statement is on the list AND policy's resources match, `, () => {
+            it(`Returns TRUE if policy with constraint ALLOW is not in the list`, () => {
+                const listOfPolicies: SnpPolicy[] = [];
+                listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:read', 'nsp:human-resources:employees'));
+                listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:write', 'nsp:human-resources:employees'));
+
+                const policy = SnpPolicyService.providePolicy('it-department:salaries:read', '', SnpPolicyConstraint.ALLOWED);
+                let decision = policyService.canAccess(policy);
+                expect(decision).toEqual(true);
+
+                const policyWithResource = SnpPolicyService.providePolicy(
+                    'it-department:salaries:read',
+                    'nsp:it-department/salaries/2017-09',
+                    SnpPolicyConstraint.ALLOWED
+                );
+                decision = policyService.canAccess(policyWithResource);
+                expect(decision).toEqual(true);
+            });
+
+            it(`Returns TRUE if policy's statement is on the list AND policy's resources match`, () => {
                 const listOfPolicies: SnpPolicy[] = [];
                 listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:read', 'nsp:human-resources:employees'));
                 listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:write', 'nsp:human-resources:employees'));
@@ -176,7 +318,21 @@ describe('SnpPolicyService', () => {
                 expect(decision).toEqual(true);
             });
 
-            it(`Returns FALSE if the policy's statement is on the list BUT resources does not match, `, () => {
+            it(`Returns TRUE if policy's statement is on the list AND policy's resources match AND policy's constraints is DISALLOW `, () => {
+                const listOfPolicies: SnpPolicy[] = [];
+                listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:read', 'nsp:human-resources:employees'));
+                listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:write', 'nsp:human-resources:employees'));
+
+                const policyWithResource = SnpPolicyService.providePolicy(
+                    'human-resources:employees:read',
+                    'nsp:human-resources:employees',
+                    SnpPolicyConstraint.DISALLOW
+                );
+                const decision = policyService.canAccess(policyWithResource, listOfPolicies);
+                expect(decision).toEqual(true);
+            });
+
+            it(`Returns FALSE if the policy's statement is on the list BUT resources does not match`, () => {
                 const listOfPolicies: SnpPolicy[] = [];
                 listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:read', 'nsp:human-resources:employees'));
                 listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:write', 'nsp:human-resources:employees'));
@@ -184,6 +340,20 @@ describe('SnpPolicyService', () => {
                 const policyWithResource = SnpPolicyService.providePolicy(
                     'human-resources:employees:read',
                     'nsp:human-resources:salaries'
+                );
+                const decision = policyService.canAccess(policyWithResource, listOfPolicies);
+                expect(decision).toEqual(false);
+            });
+            
+            it(`Returns FALSE if the policy's statement is on the list BUT resources does not match AND policy's constraint is ALLOWED`, () => {
+                const listOfPolicies: SnpPolicy[] = [];
+                listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:read', 'nsp:human-resources:employees'));
+                listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:write', 'nsp:human-resources:employees'));
+
+                const policyWithResource = SnpPolicyService.providePolicy(
+                    'human-resources:employees:read',
+                    'nsp:human-resources:salaries',
+                    SnpPolicyConstraint.ALLOWED
                 );
                 const decision = policyService.canAccess(policyWithResource, listOfPolicies);
                 expect(decision).toEqual(false);
