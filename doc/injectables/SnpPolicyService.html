@@ -572,7 +572,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">src/module/service/policy.service.ts:65</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/module/service/policy.service.ts:68</a></div>
                                         </td>
                                     </tr>
             
@@ -649,7 +649,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/module/service/policy.service.ts:55</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/module/service/policy.service.ts:58</a></div>
                                         </td>
                                     </tr>
             
@@ -726,7 +726,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/module/service/policy.service.ts:61</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">src/module/service/policy.service.ts:64</a></div>
                                         </td>
                                     </tr>
             
@@ -803,7 +803,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/module/service/policy.service.ts:44</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/module/service/policy.service.ts:47</a></div>
                                         </td>
                                     </tr>
             
@@ -1035,13 +1035,16 @@ export class SnpPolicyService {
     }
 
     public canAccess(policy: SnpPolicy, listOfPolicies: SnpPolicy[] &#x3D; []): boolean {
+        const constraint &#x3D; policy.constrains || this.config.defaultPolicyConstraint;
         if (listOfPolicies.length &#x3D;&#x3D;&#x3D; 0) {
-            return this.config.defaultPolicyConstraint &#x3D;&#x3D;&#x3D; SnpPolicyConstraint.ALLOWED;
+            return constraint &#x3D;&#x3D;&#x3D; SnpPolicyConstraint.ALLOWED;
         }
+
         const listOfMatchedPolicyStatements &#x3D; this.provideListOfMatchedPoliciesBasedOnStatement(policy, listOfPolicies);
         if (listOfMatchedPolicyStatements.length &#x3D;&#x3D;&#x3D; 0) {
-            return this.config.defaultPolicyConstraint &#x3D;&#x3D;&#x3D; SnpPolicyConstraint.ALLOWED;
+            return constraint &#x3D;&#x3D;&#x3D; SnpPolicyConstraint.ALLOWED;
         }
+
         const listOfMatchedPolicyResources &#x3D; this.provideListOfMatchedPoliciesBasedOnResource(policy, listOfPolicies);
         return !!listOfMatchedPolicyResources.length;
 

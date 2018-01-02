@@ -377,8 +377,62 @@ export class AppModule {
   imports: [SnpModule, ...], 
 })
 export class OtherModule {
-}</code></pre><h2 id="usage">Usage</h2>
-<h2 id="license">License</h2>
+}</code></pre><h2 id="behaviour-output-of-tests-">Behaviour (output of tests):</h2>
+<pre class="line-numbers"><code class="language-none">  Resource.class
+    ✔ parses default parameter into namespace/module/resource
+    ✔ parses provided string parameter into namespace/module/resource
+    ✔ parses only first three chunks of provided resource string into namespace/module/resource
+    ✔ parses provided &quot;namespace:module:&quot; string parameter into namespace/module/resource
+    ✔ parses provided &quot;namespace::&quot; string parameter into namespace/module/resource
+    ✔ parses provided &quot;::&quot; string parameter into namespace/module/resource
+    ✔ parses provided &quot;::employees&quot; string parameter into namespace/module/resource
+    ✔ parses provided &quot;:human-resources:employees&quot; string parameter into namespace/module/resource
+  SnpStatement.class
+    ✔ parses default parameter into module/component/action/ statement members
+    ✔ parses provided parameter into module/component/action/ statement members
+    ✔ parses provided &quot;one chunk string&quot; parameter into module/component/action/ statement members
+    ✔ parses provided &quot;two chunk string&quot; parameter into module/component/action/ statement members
+    ✔ parses provided &quot;three chunk string&quot; parameter into module/component/action/ statement members
+    ✔ parses provided &quot;one chunk and a colon string&quot; parameter into module/component/action/ statement members
+    ✔ parses provided &quot;one chunk and two colons string&quot; parameter into module/component/action/ statement members
+    ✔ parses provided &quot;three chunk and two colons string&quot; parameter into module/component/action/ statement members
+    ✔ parses provided &quot;two colons and a chunk string&quot; parameter into module/component/action/ statement members
+    ✔ parses provided &quot;one colon and two chunks string&quot; parameter into module/component/action/ statement members
+  SnpPolicyService
+    Has &#39;providePolicy&#39; static method which
+      ✔ Provides &#39;empty&#39; SnpPolicy when called with no parameters
+      ✔ Uses default config &#39;defaultPolicyConstraint&#39; when no constraint is specified in SnpModule.forRoot(config: SnpConfig)
+      ✔ Accepts constraint and provides a policy with given constraint
+      ✔ Provides SnpStatement and SnpResource from parameter strings
+    Has &#39;canAccess&#39; static method which compares SnpPolicy against a list of SnpPolicies[]
+      When SnpModules&#39; &#39;defaultPolicyConstraint&#39; is configured to &#39;ALLOW&#39; (default)
+        ✔ Returns TRUE for &#39;empty&#39; policy and &#39;empty list&#39;
+        ✔ Returns FALSE for &#39;empty&#39; policy and &#39;empty list&#39; when policies&#39; constraint is DISALLOW
+        ✔ Returns TRUE for &#39;empty&#39; policy and &#39;empty list&#39; when policies&#39; constraint is ALLOWED
+        ✔ Returns TRUE for empty &#39;policy&#39; when list is provided (not empty)
+        ✔ Returns FALSE for empty &#39;policy&#39; with constraints set to DISALLOW when list is provided (not empty)
+        ✔ Returns TRUE for empty &#39;policy&#39; with constraints set to ALLOWED when list is provided (not empty)
+        ✔ Returns TRUE if the policy is not in the list
+        ✔ Returns FALSE if the policy with constraint DISALLOW is not in the list
+        ✔ Returns TRUE if the policy&#39;s statement is on the list AND policy&#39;s resources match
+        ✔ Returns TRUE if the policy&#39;s statement is on the list AND policy&#39;s resources match AND policy&#39;s constraint is DISALLOW
+        ✔ Returns TRUE if the policy&#39;s statement is on the list AND policy&#39;s resources match AND policy&#39;s constraint is ALLOWED
+        ✔ Returns FALSE if the policy&#39;s statement is on the list BUT resources does not match
+        ✔ Returns FALSE if the policy&#39;s statement is on the list BUT resources does not match and policy&#39;s constraint is DISALLOW
+        ✔ Returns FALSE if the policy&#39;s statement is on the list BUT resources does not match and policy&#39;s constraint is ALLOWED
+      When SnpModule &#39;defaultPolicyConstraint&#39; is configured to &#39;DISALLOW&#39; (provided in SnpModule.forRoot(config: SnpConfig))
+        ✔ Returns FALSE for &#39;empty&#39; policy when list is not provided
+        ✔ Returns TRUE for &#39;empty&#39; policy with constraints ALLOW when list is not provided
+        ✔ Returns FALSE for empty policy when list is provided (not empty)
+        ✔ Returns TRUE for empty with constraint ALLOWED policy when list is provided (not empty)
+        ✔ Returns FALSE if policy is not in the list
+        ✔ Returns TRUE if policy with constraint ALLOW is not in the list
+        ✔ Returns TRUE if policy&#39;s statement is on the list AND policy&#39;s resources match
+        ✔ Returns TRUE if policy&#39;s statement is on the list AND policy&#39;s resources match AND policy&#39;s constraints is DISALLOW 
+        ✔ Returns FALSE if the policy&#39;s statement is on the list BUT resources does not match
+        ✔ Returns FALSE if the policy&#39;s statement is on the list BUT resources does not match AND policy&#39;s constraint is ALLOWED
+  SnpPolicy.module
+    ✔ has default configuration</code></pre><h2 id="license">License</h2>
 <p>Copyright (c) 2017 jgololicic. Licensed under the MIT License (MIT)</p>
 
 
