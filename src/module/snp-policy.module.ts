@@ -8,6 +8,7 @@ import {SnpPolicyConfiguration} from './definitions/policy-configuration';
 
 // Export module's public API
 export {SnpPolicyService} from './service/policy.service';
+export {SnpPolicyConstraint} from './definitions/policy-constraint';
 export {SnpConfig} from './definitions/config';
 export {SnpPolicy} from './definitions/policy';
 export {SnpResource} from './definitions/resource';
