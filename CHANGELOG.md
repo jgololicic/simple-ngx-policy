@@ -1,3 +1,18 @@
+<a name="0.0.12"></a>
+## [0.0.12](https://github.com/jgololicic/simple-ngx-policy/compare/v0.0.10...v0.0.12) (2018-01-02)
+
+
+### Bug Fixes
+
+* **0.0.10:** removed coveralls yml file ([33d53e6](https://github.com/jgololicic/simple-ngx-policy/commit/33d53e6))
+
+
+### Features
+
+* **0.0.11:** exported SnpPolicyConstraint ([4cdca29](https://github.com/jgololicic/simple-ngx-policy/commit/4cdca29))
+
+
+
 <a name="0.0.10"></a>
 ## [0.0.10](https://github.com/jgololicic/simple-ngx-policy/compare/v0.0.8...v0.0.10) (2017-12-28)
 
