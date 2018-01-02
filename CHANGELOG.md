@@ -1,3 +1,13 @@
+<a name="0.0.13"></a>
+## [0.0.13](https://github.com/jgololicic/simple-ngx-policy/compare/v0.0.12...v0.0.13) (2018-01-02)
+
+
+### Features
+
+* **0.0.12:** policy's constraint manipulates SnpPolicy.canAccess return value ([730767d](https://github.com/jgololicic/simple-ngx-policy/commit/730767d))
+
+
+
 <a name="0.0.12"></a>
 ## [0.0.12](https://github.com/jgololicic/simple-ngx-policy/compare/v0.0.10...v0.0.12) (2018-01-02)
 
