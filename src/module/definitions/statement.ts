@@ -1,19 +1,11 @@
 /*
  *  Copyright (C) 2010-2017 Jernej Gololicic <jernej.gololicic@planet-sports.com>
  *
- *  This file is part of quahog.
- *
- *  quahog can not be copied and/or distributed without the express
- *  permission of 21 Run.
- *
  *  jgololicic on 14/12/17 10:16
  *
  */
 
 export class SnpStatement {
-    // public readonly STATEMENT_FORMAT = 'module:component:action';
-    // public readonly STATEMENT_ACTION_READ = 'read';
-    // public readonly STATEMENT_ACTION_WRITE = 'write';
     public readonly STATEMENT_ACTION_GRANTED = '*';
     public readonly STATEMENT_MODULE_GRANTED = '*';
     public readonly STATEMENT_COMPONENT_GRANTED = '*';
