@@ -1,11 +1,6 @@
 /*
  *  Copyright (C) 2010-2017 Jernej Gololicic <jernej.gololicic@planet-sports.com>
  *
- *  This file is part of quahog.
- *
- *  quahog can not be copied and/or distributed without the express
- *  permission of 21 Run.
- *
  *  jgololicic on 14/12/17 13:35
  *
  */
