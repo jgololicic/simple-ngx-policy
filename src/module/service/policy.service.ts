@@ -29,7 +29,7 @@ export class SnpPolicyService {
     }
 
     public canAccess(policy: SnpPolicy, listOfPolicies: SnpPolicy[] = []): boolean {
-        const constraint = policy.constrains || this.config.defaultPolicyConstraint;
+        const constraint = policy.constrains;
         if (listOfPolicies.length === 0) {
             return constraint === SnpPolicyConstraint.ALLOWED;
         }
