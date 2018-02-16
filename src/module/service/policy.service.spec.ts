@@ -32,16 +32,16 @@ describe('SnpPolicyService', () => {
 
         it(`Provides 'empty' SnpPolicy when called with no parameters`,
             inject([SnpPolicyConfiguration], (config: SnpConfig) => {
-            const policy = SnpPolicyService.providePolicy();
-            const emptyPolicy = new SnpPolicy(defaultStatement, defaultResource, config.defaultPolicyConstraint);
-            expect(policy).toEqual(emptyPolicy)
-        }));
+                const policy = SnpPolicyService.providePolicy();
+                const emptyPolicy = new SnpPolicy(defaultStatement, defaultResource, config.defaultPolicyConstraint);
+                expect(policy).toEqual(emptyPolicy)
+            }));
 
         it(`Uses default config 'defaultPolicyConstraint' when no constraint is specified in SnpModule.forRoot(config: SnpConfig)`,
             inject([SnpPolicyConfiguration], (config: SnpConfig) => {
-            const policy = SnpPolicyService.providePolicy();
-            expect(policy.constrains).toBe(config.defaultPolicyConstraint);
-        }));
+                const policy = SnpPolicyService.providePolicy();
+                expect(policy.constrains).toBe(config.defaultPolicyConstraint);
+            }));
 
         it(`Accepts constraint and provides a policy with given constraint`,
             inject([SnpPolicyConfiguration], (config: SnpConfig) => {
@@ -344,7 +344,7 @@ describe('SnpPolicyService', () => {
                 const decision = policyService.canAccess(policyWithResource, listOfPolicies);
                 expect(decision).toEqual(false);
             });
-            
+
             it(`Returns FALSE if the policy's statement is on the list BUT resources does not match AND policy's constraint is ALLOWED`, () => {
                 const listOfPolicies: SnpPolicy[] = [];
                 listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:read', 'nsp:human-resources:employees'));
