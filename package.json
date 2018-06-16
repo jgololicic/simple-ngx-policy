@@ -34,6 +34,7 @@
     "@angular/common": ">=2.0.0"
   },
   "devDependencies": {
+    "@angular/router": ">=2.0.0",
     "@angular/animations": ">=2.0.0",
     "@angular/compiler": ">=2.0.0",
     "@angular/compiler-cli": ">=2.0.0",
