@@ -90,7 +90,7 @@ describe('SnpPolicyService', () => {
                 listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:write', 'nsp:human-resources:employees'));
 
                 const policy = SnpPolicyService.providePolicy();
-                const decision = policyService.canAccess(policy);
+                const decision = policyService.canAccess(policy, listOfPolicies);
                 expect(decision).toEqual(true);
             });
 
@@ -100,7 +100,7 @@ describe('SnpPolicyService', () => {
                 listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:write', 'nsp:human-resources:employees'));
 
                 const policy = SnpPolicyService.providePolicy(null, null, SnpPolicyConstraint.DISALLOW);
-                const decision = policyService.canAccess(policy);
+                const decision = policyService.canAccess(policy, listOfPolicies);
                 expect(decision).toEqual(false);
             });
 
@@ -110,7 +110,7 @@ describe('SnpPolicyService', () => {
                 listOfPolicies.push(SnpPolicyService.providePolicy('human-resources:employees:write', 'nsp:human-resources:employees'));
 
                 const policy = SnpPolicyService.providePolicy(null, null, SnpPolicyConstraint.ALLOWED);
-                const decision = policyService.canAccess(policy);
+                const decision = policyService.canAccess(policy, listOfPolicies);
                 expect(decision).toEqual(true);
             });
 
